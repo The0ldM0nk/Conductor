@@ -11,10 +11,7 @@
     <FrameLayout
         android:id="@+id/fl_dest"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingStart="0dp"
-        android:paddingTop="0dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/text_view_1"
