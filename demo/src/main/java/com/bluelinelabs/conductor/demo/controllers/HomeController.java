@@ -42,6 +42,7 @@ import butterknife.OnClick;
 public class HomeController extends BaseController {
 
     private enum HomeDemoModel {
+        DATA_BINDING("Android Databinding", R.color.lime_300),
         NAVIGATION("Navigation Demos", R.color.red_300),
         TRANSITIONS("Transition Demos", R.color.blue_grey_300),
         SHARED_ELEMENT_TRANSITIONS("Shared Element Demos", R.color.purple_300),
@@ -55,7 +56,8 @@ public class HomeController extends BaseController {
         RX_LIFECYCLE_2("Rx Lifecycle 2", R.color.brown_300);
 
         String title;
-        @ColorRes int color;
+        @ColorRes
+        int color;
 
         HomeDemoModel(String title, @ColorRes int color) {
             this.title = title;
@@ -65,8 +67,10 @@ public class HomeController extends BaseController {
 
     private static final String KEY_FAB_VISIBILITY = "HomeController.fabVisibility";
 
-    @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.fab) View fab;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.fab)
+    View fab;
 
     public HomeController() {
         setHasOptionsMenu(true);
@@ -165,6 +169,11 @@ public class HomeController extends BaseController {
 
     void onModelRowClick(HomeDemoModel model, int position) {
         switch (model) {
+            case DATA_BINDING:
+                getRouter().pushController(RouterTransaction.with(new BindedStartController())
+                        .pushChangeHandler(new TransitionChangeHandlerCompat(new ArcFadeMoveChangeHandler(), new FadeChangeHandler()))
+                        .popChangeHandler(new TransitionChangeHandlerCompat(new ArcFadeMoveChangeHandler(), new FadeChangeHandler())));
+                break;
             case NAVIGATION:
                 getRouter().pushController(RouterTransaction.with(new NavigationDemoController(0, DisplayUpMode.SHOW_FOR_CHILDREN_ONLY))
                         .pushChangeHandler(new FadeChangeHandler())
@@ -251,8 +260,10 @@ public class HomeController extends BaseController {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            @BindView(R.id.tv_title) TextView tvTitle;
-            @BindView(R.id.img_dot) ImageView imgDot;
+            @BindView(R.id.tv_title)
+            TextView tvTitle;
+            @BindView(R.id.img_dot)
+            ImageView imgDot;
             private HomeDemoModel model;
             private int position;
 
